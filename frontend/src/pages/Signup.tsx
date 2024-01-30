@@ -61,7 +61,7 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const signupHandller = async () => {
-    if(firstNameIsValid | lastNameIsValid | emailIsValid | passwordIsValid){
+    if(firstNameIsValid || lastNameIsValid || emailIsValid || passwordIsValid){
       return
     }
     try {

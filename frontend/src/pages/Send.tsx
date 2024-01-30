@@ -5,7 +5,7 @@ import { TransferMoney } from "../store/axios";
 const Send = () => {
   const [searchParams] = useSearchParams();
   const id = searchParams.get("id") ? searchParams.get("id") : "";
-  const name = searchParams.get("name");
+  const name = searchParams.get("name") ? searchParams.get("name") : "";
   const [amount, setAmount] = useState(0);
   const navigate = useNavigate();
 
@@ -50,7 +50,7 @@ const Send = () => {
             <div className="flex items-center space-x-4">
               <div className="w-12 h-12 rounded-full bg-green-500 flex items-center justify-center">
                 <span className="text-2xl text-white">
-                  {name[0].toUpperCase()}
+                  {name && name !== "" ? name[0].toUpperCase() : ""}
                 </span>
               </div>
               <h3 className="text-2xl font-semibold">{name}</h3>
@@ -66,8 +66,6 @@ const Send = () => {
                 <input
                   onChange={(e) => {
                     setAmount(() => +e.target.value);
-                    console.log(amount);
-                    
                   }}
                   type="number"
                   className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"

@@ -36,6 +36,7 @@ npm run dev
 6. Run the frontend
 ```
 cd ..\frontend\
+npm i
 npm run dev
 ```
 

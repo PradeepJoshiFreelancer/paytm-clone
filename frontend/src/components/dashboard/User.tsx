@@ -1,7 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../signin/Button";
+import { FilterUserResponse } from "../models/requestBody";
 
-function User({user}) {
+interface UserProps{
+    user: FilterUserResponse
+}
+function User({user}:UserProps) {
     const navigate = useNavigate();
 
     return <div className="flex justify-between px-8">
@@ -19,7 +23,7 @@ function User({user}) {
         </div>
 
         <div className="flex flex-col justify-center h-ful">
-            <Button onClick={(e) => {
+            <Button onClick={() => {
                 navigate("/send?id=" + user.id + "&name=" + user.firstName);
             }} label={"Send Money"} />
         </div>

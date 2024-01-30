@@ -18,3 +18,11 @@ export interface CurrentUserResponse {
   lastName: string;
   balance: number
 }
+
+
+export interface FilterUserResponse {
+  id: string;
+  username: string;
+  firstName: string;
+  lastName: string;
+}

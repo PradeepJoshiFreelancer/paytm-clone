@@ -5,17 +5,15 @@ import Users from "../components/dashboard/Users";
 import { useEffect, useState } from "react";
 import { GetCurrentUser } from "../store/axios";
 import { CurrentUserResponse } from "../components/models/requestBody";
-import NewAppbar from "../components/dashboard/NewApp";
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const initialValue = {
+  const [currentUser, setCurrentUser] = useState<CurrentUserResponse>({
     username: "",
     firstName: "",
     lastName: "",
     balance: 0.00
-}
-  const [currentUser, setCurrentUser] = useState<CurrentUserResponse>(initialValue);
+});
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -25,16 +23,22 @@ const Dashboard = () => {
       return;
     }
     const getCurrentUser = async () => {
+      const initalValue = {
+        username: "",
+        firstName: "",
+        lastName: "",
+        balance: 0.00
+    }
       try {
         const { data, status } = await GetCurrentUser(token);
 
         if (status === 200 || status === 201) {
           setCurrentUser(data.user);
         } else {
-          setCurrentUser(initialValue);
+          setCurrentUser(initalValue);
         }
       } catch (e) {
-        setCurrentUser(initialValue);
+        setCurrentUser(initalValue);
       }
     };
     getCurrentUser();

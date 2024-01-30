@@ -3,9 +3,10 @@ import User from "./User";
 import { GetUsers } from "../../store/axios";
 import { useNavigate } from "react-router-dom";
 import useDebounced from "../../hooks/useDebounced";
+import { FilterUserResponse } from "../models/requestBody";
 
 const Users = () => {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<FilterUserResponse[]>([]);
   const [filter, setFilter] = useState("");
   const navigation = useNavigate();
   const debounceValue = useDebounced({value: filter, timeout: 500})
