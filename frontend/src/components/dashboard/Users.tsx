@@ -2,17 +2,19 @@ import { useCallback, useEffect, useState } from "react";
 import User from "./User";
 import { GetUsers } from "../../store/axios";
 import { useNavigate } from "react-router-dom";
+import useDebounced from "../../hooks/useDebounced";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
   const [filter, setFilter] = useState("");
   const navigation = useNavigate();
+  const debounceValue = useDebounced({value: filter, timeout: 500})
 
   const fetchUsers = useCallback(async () => {
     try {
       const token = localStorage.getItem("token");
       if (token) {
-        const { data, status } = await GetUsers(filter, token);
+        const { data, status } = await GetUsers(debounceValue, token);
 
         if (status === 200 || status === 201) {
           setUsers(data.users);
@@ -25,11 +27,11 @@ const Users = () => {
     } catch (e) {
       setUsers([]);
     }
-  }, [filter, navigation]);
+  }, [debounceValue, navigation]);
 
   useEffect(() => {
     fetchUsers();
-  }, [fetchUsers, filter]);
+  }, [fetchUsers]);
 
   return (
     <>
